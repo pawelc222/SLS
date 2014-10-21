@@ -1,0 +1,16 @@
+<publishData>
+  <publishTarget publishUrl="http://localhost/SLS.WCFService/wcf">
+    <file relUrl="bin/SLS.WCFService.dll.config" publishTime="10/21/2014 21:17:31" />
+    <file relUrl="bin/SLS.WCFService.pdb" publishTime="10/21/2014 21:36:58" />
+    <file relUrl="bin/SLS.WCFService.dll" publishTime="10/21/2014 21:36:58" />
+    <file relUrl="Web.config" publishTime="10/21/2014 21:17:31" />
+    <file relUrl="SLS.WCFService.Service1.svc" publishTime="10/21/2014 21:36:59" />
+  </publishTarget>
+  <publishTarget publishUrl="http://localhost/SLS.WCFService">
+    <file relUrl="bin/SLS.WCFService.dll.config" publishTime="10/21/2014 21:17:31" />
+    <file relUrl="bin/SLS.WCFService.pdb" publishTime="10/21/2014 21:14:58" />
+    <file relUrl="bin/SLS.WCFService.dll" publishTime="10/21/2014 21:14:58" />
+    <file relUrl="Web.config" publishTime="10/21/2014 21:17:31" />
+    <file relUrl="SLS.WCFService.Service1.svc" publishTime="10/21/2014 21:24:55" />
+  </publishTarget>
+</publishData>
