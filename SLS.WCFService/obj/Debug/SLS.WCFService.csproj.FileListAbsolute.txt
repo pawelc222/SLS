@@ -1,6 +1,0 @@
-d:\dokumenty\visual studio 2013\Projects\SLS\SLS.WCFService\bin\Debug\SLS.WCFService.dll.config
-d:\dokumenty\visual studio 2013\Projects\SLS\SLS.WCFService\bin\Debug\SLS.WCFService.dll
-d:\dokumenty\visual studio 2013\Projects\SLS\SLS.WCFService\bin\Debug\SLS.WCFService.pdb
-d:\dokumenty\visual studio 2013\Projects\SLS\SLS.WCFService\obj\Debug\SLS.WCFService.dll
-d:\dokumenty\visual studio 2013\Projects\SLS\SLS.WCFService\obj\Debug\SLS.WCFService.pdb
-d:\dokumenty\visual studio 2013\Projects\SLS\SLS.WCFService\obj\Debug\SLS.WCFService.csprojResolveAssemblyReference.cache
