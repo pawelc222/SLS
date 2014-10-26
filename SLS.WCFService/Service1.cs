@@ -12,7 +12,12 @@ namespace SLS.WCFService
     {
         public string GetData(int value)
         {
-            return string.Format("You entered: {0}", value);
+            //
+            using (var ctx = new SLSEntities())
+            {
+                var category = (from c in ctx.categories select c).FirstOrDefault<category>();
+                return category.name;
+            }
         }
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)

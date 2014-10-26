@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SLSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="authors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" />
+          <Property Name="date_of_death" Type="date" />
+          <Property Name="description" Type="ntext" />
+        </EntityType>
+        <EntityType Name="book_authors">
+          <Key>
+            <PropertyRef Name="book_id_fk" />
+            <PropertyRef Name="author_id_fk" />
+          </Key>
+          <Property Name="book_id_fk" Type="int" Nullable="false" />
+          <Property Name="author_id_fk" Type="int" Nullable="false" />
+          <Property Name="ord" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="book_categories">
+          <Key>
+            <PropertyRef Name="book_id_fk" />
+            <PropertyRef Name="category_id_fk" />
+          </Key>
+          <Property Name="book_id_fk" Type="int" Nullable="false" />
+          <Property Name="category_id_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="books">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isbn" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="publisher_id_fk" Type="int" />
+          <Property Name="publish_date" Type="date" />
+          <Property Name="publish_city" Type="nvarchar" MaxLength="50" />
+          <Property Name="publish_edition" Type="int" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cover" Type="varchar" MaxLength="255" />
+          <Property Name="table_of_contents" Type="ntext" />
+          <Property Name="language" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="ntext" />
+          <Property Name="available_copies" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="borrows">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="book_id_fk" Type="int" Nullable="false" />
+          <Property Name="user_id_fk" Type="int" Nullable="false" />
+          <Property Name="from_date" Type="datetime" Nullable="false" />
+          <Property Name="to_date" Type="datetime" Nullable="false" />
+          <Property Name="prolong_cnt" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="publishers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="reservations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="book_id_fk" Type="int" Nullable="false" />
+          <Property Name="user_id_fk" Type="int" Nullable="false" />
+          <Property Name="reservation_date" Type="datetime" Nullable="false" />
+          <Property Name="queue_position" Type="int" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="ntext" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_id_fk" Type="int" Nullable="false" />
+          <Property Name="login" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="int" Nullable="false" />
+          <Property Name="passwd" Type="nchar" MaxLength="40" Nullable="false" />
+          <Property Name="incorrect_login_cnt" Type="int" Nullable="false" />
+          <Property Name="last_login_info" Type="nvarchar" MaxLength="255" />
+          <Property Name="token" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_book_authors_authors">
+          <End Role="authors" Type="Self.authors" Multiplicity="1" />
+          <End Role="book_authors" Type="Self.book_authors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="authors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="book_authors">
+              <PropertyRef Name="author_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_book_authors_books">
+          <End Role="books" Type="Self.books" Multiplicity="1" />
+          <End Role="book_authors" Type="Self.book_authors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="book_authors">
+              <PropertyRef Name="book_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_book_categories_books">
+          <End Role="books" Type="Self.books" Multiplicity="1" />
+          <End Role="book_categories" Type="Self.book_categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="book_categories">
+              <PropertyRef Name="book_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_book_categories_categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="1" />
+          <End Role="book_categories" Type="Self.book_categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="book_categories">
+              <PropertyRef Name="category_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_books_publishers">
+          <End Role="publishers" Type="Self.publishers" Multiplicity="0..1" />
+          <End Role="books" Type="Self.books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publishers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="books">
+              <PropertyRef Name="publisher_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_borrows_books">
+          <End Role="books" Type="Self.books" Multiplicity="1" />
+          <End Role="borrows" Type="Self.borrows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="borrows">
+              <PropertyRef Name="book_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_borrows_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="borrows" Type="Self.borrows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="borrows">
+              <PropertyRef Name="user_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reservations_books">
+          <End Role="books" Type="Self.books" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="book_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reservations_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="user_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="role_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SLSModelStoreContainer">
+          <EntitySet Name="authors" EntityType="Self.authors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="book_authors" EntityType="Self.book_authors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="book_categories" EntityType="Self.book_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="books" EntityType="Self.books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="borrows" EntityType="Self.borrows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="publishers" EntityType="Self.publishers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reservations" EntityType="Self.reservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_book_authors_authors" Association="Self.FK_book_authors_authors">
+            <End Role="authors" EntitySet="authors" />
+            <End Role="book_authors" EntitySet="book_authors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_book_authors_books" Association="Self.FK_book_authors_books">
+            <End Role="books" EntitySet="books" />
+            <End Role="book_authors" EntitySet="book_authors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_book_categories_books" Association="Self.FK_book_categories_books">
+            <End Role="books" EntitySet="books" />
+            <End Role="book_categories" EntitySet="book_categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_book_categories_categories" Association="Self.FK_book_categories_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="book_categories" EntitySet="book_categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_books_publishers" Association="Self.FK_books_publishers">
+            <End Role="publishers" EntitySet="publishers" />
+            <End Role="books" EntitySet="books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_borrows_books" Association="Self.FK_borrows_books">
+            <End Role="books" EntitySet="books" />
+            <End Role="borrows" EntitySet="borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_borrows_users" Association="Self.FK_borrows_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="borrows" EntitySet="borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reservations_books" Association="Self.FK_reservations_books">
+            <End Role="books" EntitySet="books" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reservations_users" Association="Self.FK_reservations_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_roles" Association="Self.FK_users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SLSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="author">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="date_of_death" Type="DateTime" Precision="0" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="book_authors" Relationship="Self.FK_book_authors_authors" FromRole="authors" ToRole="book_authors" />
+        </EntityType>
+        <EntityType Name="book_authors">
+          <Key>
+            <PropertyRef Name="book_id_fk" />
+            <PropertyRef Name="author_id_fk" />
+          </Key>
+          <Property Name="book_id_fk" Type="Int32" Nullable="false" />
+          <Property Name="author_id_fk" Type="Int32" Nullable="false" />
+          <Property Name="ord" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="author" Relationship="Self.FK_book_authors_authors" FromRole="book_authors" ToRole="authors" />
+          <NavigationProperty Name="book" Relationship="Self.FK_book_authors_books" FromRole="book_authors" ToRole="books" />
+        </EntityType>
+        <EntityType Name="book">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isbn" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="publisher_id_fk" Type="Int32" />
+          <Property Name="publish_date" Type="DateTime" Precision="0" />
+          <Property Name="publish_city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="publish_edition" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cover" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="table_of_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="available_copies" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="book_authors" Relationship="Self.FK_book_authors_books" FromRole="books" ToRole="book_authors" />
+          <NavigationProperty Name="publisher" Relationship="Self.FK_books_publishers" FromRole="books" ToRole="publishers" />
+          <NavigationProperty Name="borrows" Relationship="Self.FK_borrows_books" FromRole="books" ToRole="borrows" />
+          <NavigationProperty Name="reservations" Relationship="Self.FK_reservations_books" FromRole="books" ToRole="reservations" />
+          <NavigationProperty Name="categories" Relationship="Self.book_categories" FromRole="books" ToRole="categories" />
+        </EntityType>
+        <EntityType Name="borrow">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book_id_fk" Type="Int32" Nullable="false" />
+          <Property Name="user_id_fk" Type="Int32" Nullable="false" />
+          <Property Name="from_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="to_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="prolong_cnt" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="book" Relationship="Self.FK_borrows_books" FromRole="borrows" ToRole="books" />
+          <NavigationProperty Name="user" Relationship="Self.FK_borrows_users" FromRole="borrows" ToRole="users" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="books" Relationship="Self.book_categories" FromRole="categories" ToRole="books" />
+        </EntityType>
+        <EntityType Name="publisher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="books" Relationship="Self.FK_books_publishers" FromRole="publishers" ToRole="books" />
+        </EntityType>
+        <EntityType Name="reservation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book_id_fk" Type="Int32" Nullable="false" />
+          <Property Name="user_id_fk" Type="Int32" Nullable="false" />
+          <Property Name="reservation_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="queue_position" Type="Int32" />
+          <NavigationProperty Name="book" Relationship="Self.FK_reservations_books" FromRole="reservations" ToRole="books" />
+          <NavigationProperty Name="user" Relationship="Self.FK_reservations_users" FromRole="reservations" ToRole="users" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="Self.FK_users_roles" FromRole="roles" ToRole="users" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_id_fk" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="Int32" Nullable="false" />
+          <Property Name="passwd" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="incorrect_login_cnt" Type="Int32" Nullable="false" />
+          <Property Name="last_login_info" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="token" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="borrows" Relationship="Self.FK_borrows_users" FromRole="users" ToRole="borrows" />
+          <NavigationProperty Name="reservations" Relationship="Self.FK_reservations_users" FromRole="users" ToRole="reservations" />
+          <NavigationProperty Name="role" Relationship="Self.FK_users_roles" FromRole="users" ToRole="roles" />
+        </EntityType>
+        <Association Name="FK_book_authors_authors">
+          <End Role="authors" Type="Self.author" Multiplicity="1" />
+          <End Role="book_authors" Type="Self.book_authors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="authors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="book_authors">
+              <PropertyRef Name="author_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_book_authors_books">
+          <End Role="books" Type="Self.book" Multiplicity="1" />
+          <End Role="book_authors" Type="Self.book_authors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="book_authors">
+              <PropertyRef Name="book_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_books_publishers">
+          <End Role="publishers" Type="Self.publisher" Multiplicity="0..1" />
+          <End Role="books" Type="Self.book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publishers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="books">
+              <PropertyRef Name="publisher_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_borrows_books">
+          <End Role="books" Type="Self.book" Multiplicity="1" />
+          <End Role="borrows" Type="Self.borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="borrows">
+              <PropertyRef Name="book_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reservations_books">
+          <End Role="books" Type="Self.book" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="book_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_borrows_users">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="borrows" Type="Self.borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="borrows">
+              <PropertyRef Name="user_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reservations_users">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="reservations" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="reservations">
+              <PropertyRef Name="user_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_roles">
+          <End Role="roles" Type="Self.role" Multiplicity="1" />
+          <End Role="users" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="role_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="book_categories">
+          <End Role="books" Type="Self.book" Multiplicity="*" />
+          <End Role="categories" Type="Self.category" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SLSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="authors" EntityType="Self.author" />
+          <EntitySet Name="book_authors" EntityType="Self.book_authors" />
+          <EntitySet Name="books" EntityType="Self.book" />
+          <EntitySet Name="borrows" EntityType="Self.borrow" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="publishers" EntityType="Self.publisher" />
+          <EntitySet Name="reservations" EntityType="Self.reservation" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_book_authors_authors" Association="Self.FK_book_authors_authors">
+            <End Role="authors" EntitySet="authors" />
+            <End Role="book_authors" EntitySet="book_authors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_book_authors_books" Association="Self.FK_book_authors_books">
+            <End Role="books" EntitySet="books" />
+            <End Role="book_authors" EntitySet="book_authors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_books_publishers" Association="Self.FK_books_publishers">
+            <End Role="publishers" EntitySet="publishers" />
+            <End Role="books" EntitySet="books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_borrows_books" Association="Self.FK_borrows_books">
+            <End Role="books" EntitySet="books" />
+            <End Role="borrows" EntitySet="borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reservations_books" Association="Self.FK_reservations_books">
+            <End Role="books" EntitySet="books" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_borrows_users" Association="Self.FK_borrows_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="borrows" EntitySet="borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reservations_users" Association="Self.FK_reservations_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="reservations" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_roles" Association="Self.FK_users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="book_categories" Association="Self.book_categories">
+            <End Role="books" EntitySet="books" />
+            <End Role="categories" EntitySet="categories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SLSModelStoreContainer" CdmEntityContainer="SLSEntities">
+          <EntitySetMapping Name="authors">
+            <EntityTypeMapping TypeName="SLSModel.author">
+              <MappingFragment StoreEntitySet="authors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="date_of_death" ColumnName="date_of_death" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="book_authors">
+            <EntityTypeMapping TypeName="SLSModel.book_authors">
+              <MappingFragment StoreEntitySet="book_authors">
+                <ScalarProperty Name="book_id_fk" ColumnName="book_id_fk" />
+                <ScalarProperty Name="author_id_fk" ColumnName="author_id_fk" />
+                <ScalarProperty Name="ord" ColumnName="ord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="books">
+            <EntityTypeMapping TypeName="SLSModel.book">
+              <MappingFragment StoreEntitySet="books">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="isbn" ColumnName="isbn" />
+                <ScalarProperty Name="publisher_id_fk" ColumnName="publisher_id_fk" />
+                <ScalarProperty Name="publish_date" ColumnName="publish_date" />
+                <ScalarProperty Name="publish_city" ColumnName="publish_city" />
+                <ScalarProperty Name="publish_edition" ColumnName="publish_edition" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="cover" ColumnName="cover" />
+                <ScalarProperty Name="table_of_contents" ColumnName="table_of_contents" />
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="available_copies" ColumnName="available_copies" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="borrows">
+            <EntityTypeMapping TypeName="SLSModel.borrow">
+              <MappingFragment StoreEntitySet="borrows">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="book_id_fk" ColumnName="book_id_fk" />
+                <ScalarProperty Name="user_id_fk" ColumnName="user_id_fk" />
+                <ScalarProperty Name="from_date" ColumnName="from_date" />
+                <ScalarProperty Name="to_date" ColumnName="to_date" />
+                <ScalarProperty Name="prolong_cnt" ColumnName="prolong_cnt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="SLSModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="publishers">
+            <EntityTypeMapping TypeName="SLSModel.publisher">
+              <MappingFragment StoreEntitySet="publishers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reservations">
+            <EntityTypeMapping TypeName="SLSModel.reservation">
+              <MappingFragment StoreEntitySet="reservations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="book_id_fk" ColumnName="book_id_fk" />
+                <ScalarProperty Name="user_id_fk" ColumnName="user_id_fk" />
+                <ScalarProperty Name="reservation_date" ColumnName="reservation_date" />
+                <ScalarProperty Name="queue_position" ColumnName="queue_position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="SLSModel.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="SLSModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role_id_fk" ColumnName="role_id_fk" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="passwd" ColumnName="passwd" />
+                <ScalarProperty Name="incorrect_login_cnt" ColumnName="incorrect_login_cnt" />
+                <ScalarProperty Name="last_login_info" ColumnName="last_login_info" />
+                <ScalarProperty Name="token" ColumnName="token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="book_categories" TypeName="SLSModel.book_categories" StoreEntitySet="book_categories">
+            <EndProperty Name="books">
+              <ScalarProperty Name="id" ColumnName="book_id_fk" />
+            </EndProperty>
+            <EndProperty Name="categories">
+              <ScalarProperty Name="id" ColumnName="category_id_fk" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

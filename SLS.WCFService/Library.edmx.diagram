@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="398f18abc8484ca8ae47f6810546a2cf" Name="Diagram1">
+        <EntityTypeShape EntityType="SLSModel.author" Width="1.5" PointX="0.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.book_authors" Width="1.5" PointX="0.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.book" Width="1.5" PointX="2.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.borrow" Width="1.5" PointX="4.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.category" Width="1.5" PointX="4.875" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.publisher" Width="1.5" PointX="0.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.reservation" Width="1.5" PointX="4.875" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.role" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SLSModel.user" Width="1.5" PointX="2.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="SLSModel.FK_book_authors_authors" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.FK_book_authors_books" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.FK_books_publishers" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.FK_borrows_books" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.FK_reservations_books" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.FK_borrows_users" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.FK_reservations_users" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.FK_users_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="SLSModel.book_categories" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
