@@ -83,7 +83,8 @@
     <Compile Include="category.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="IService1.cs" />
+    <Compile Include="ISLSDesktopService.cs" />
+    <Compile Include="ISLSMobileService.cs" />
     <Compile Include="Library.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,7 +110,8 @@
     <Compile Include="role.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
-    <Compile Include="Service1.cs" />
+    <Compile Include="SLSDesktopService.cs" />
+    <Compile Include="SLSMobileService.cs" />
     <Compile Include="user.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>

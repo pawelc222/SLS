@@ -11,25 +11,35 @@ namespace SLS.WCFService.SelfHost
         static void Main(string[] args)
         {
 
-            ServiceHost svcHost = null;
+            ServiceHost svcHostDesktop = null;
+            ServiceHost svcHostMobile = null;
             try
             {
-                svcHost = new ServiceHost(typeof(SLS.WCFService.Service1));
-                svcHost.Open(); Console.WriteLine("\n\nService is Running  at following address");
-                Console.WriteLine("\nhttp://localhost:1234/SLSMobile");
+                svcHostDesktop = new ServiceHost(typeof(SLS.WCFService.SLSDesktopService));
+                svcHostDesktop.Open(); 
+                Console.WriteLine("\n\nSLS Service Desktop is Running  at following address");
                 Console.WriteLine("\nnet.tcp://localhost:4567/SLS");
+                
+                svcHostMobile = new ServiceHost(typeof(SLS.WCFService.SLSMobileService));
+                svcHostMobile.Open(); 
+                Console.WriteLine("\n\nSLS Service Mobile is Running  at following address");
+                Console.WriteLine("\nhttp://localhost:1234/SLSMobile");
+                
             }
             catch (Exception eX)
             {
-                svcHost = null;
+                svcHostDesktop = null;
+                svcHostMobile = null;
                 Console.WriteLine("Service can not be started \n\nError Message [" + eX.Message + "]");
                 Console.ReadKey();
-            } if (svcHost != null)
+            } if (svcHostDesktop != null)
             {
                 Console.WriteLine("\nPress any key to close the Service");
                 Console.ReadKey();
-                svcHost.Close();
-                svcHost = null;
+                svcHostDesktop.Close();
+                svcHostDesktop = null;
+                svcHostMobile.Close();
+                svcHostMobile = null;
             }            
         }
     }
