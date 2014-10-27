@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SLS.WCFService.SLS.WCFService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,33 +13,15 @@ namespace SLS.WCFService
     public interface ISLSDesktopService
     {
         [OperationContract]
-        string GetData(int value);
+        Book GetBook(int bookId);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        List<Book> GetAllBooks();
+
+        [OperationContract]
+        List<Book> GetDueBooks();
+
 
         // TODO: Add your service operations here
-    }
-
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
     }
 }

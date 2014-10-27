@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SLS.WCFService.SLS.WCFService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -10,6 +11,12 @@ namespace SLS.WCFService
     public interface ISLSMobileService
     {
         [OperationContract]
-        string GetDataMobile(int value);
+        List<Book> GetBooksForUser(int userId);
+        
+        [OperationContract]
+        bool BorrowBook(int userId, int bookId);
+
+        [OperationContract]
+        bool ReturnBook(int userId, int bookId);
     }
 }
