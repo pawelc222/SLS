@@ -16,4 +16,14 @@ namespace SLS.WCFService
         [DataMember]
         public string Description { get; set; }
     }
+    [DataContract]
+    public class EntityCouldNotBeAdded
+    {
+        [DataMember]
+        public bool Result { get; set; }
+        [DataMember]
+        public string Message { get; set; }
+        [DataMember]
+        public string Description { get; set; }
+    }
 }

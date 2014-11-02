@@ -22,5 +22,13 @@ namespace SLS.WCFService
         [OperationContract]
         List<Book> GetDueBooks();
 
+        [OperationContract]
+        [FaultContract(typeof(EntityCouldNotBeAdded))]
+        bool AddAuthor(author authorToAdd);
+
+        [OperationContract]
+        [FaultContract(typeof(EntityCouldNotBeAdded))]
+        bool AddBook(book bookToAdd, List<author> authors);
+
     }
 }

@@ -20,7 +20,6 @@ namespace SLS.WCFService
                 var entityBook = (from b in ctx.books where b.id == bookId select b).FirstOrDefault();
                 if(entityBook != null) 
                 {
-
                     return GetBookFromEntity(entityBook);
                 }
                 else
@@ -68,7 +67,11 @@ namespace SLS.WCFService
                 }
                 else
                 {
-                    throw new FaultException("There are no due books in the library.");
+                    BookNotFoundFault fault = new BookNotFoundFault();
+                    fault.Result = false;
+                    fault.Message = "Books not found";
+                    fault.Description = "There are no due books in the library.";
+                    throw new FaultException<BookNotFoundFault>(fault);
                 }
                 
             }
@@ -91,5 +94,63 @@ namespace SLS.WCFService
             return book;
         }
 
+
+
+        public bool AddAuthor(author authorToAdd)
+        {
+            bool result;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    ctx.authors.Add(authorToAdd);
+                    ctx.SaveChanges();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Author couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return result;
+        }
+
+
+        public bool AddBook(book bookToAdd, List<author> authors)
+        {
+            bool result;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    bookToAdd.book_authors = new List<book_authors>();
+                    int order = 1;
+                    foreach (author bookAuthor in authors)                        
+                    {
+                        var auth = (from a in ctx.authors where a.id == bookAuthor.id select a).FirstOrDefault();
+                        bookToAdd.book_authors.Add(new book_authors { author = auth, book = bookToAdd, ord = order++ });
+                    }
+                    ctx.books.Add(bookToAdd);
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Book couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return result;
+        }
     }
 }
