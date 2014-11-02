@@ -66,7 +66,11 @@ namespace SLS.WCFService
                 }
                 else
                 {
-                    throw new FaultException("There are no due books in the library.");
+                    BookNotFoundFault fault = new BookNotFoundFault();
+                    fault.Result = false;
+                    fault.Message = "Books not found";
+                    fault.Description = "There are no due books in the library.";
+                    throw new FaultException<BookNotFoundFault>(fault);
                 }
                 
             }
@@ -89,5 +93,55 @@ namespace SLS.WCFService
             return book;
         }
 
+
+
+        public bool AddAuthor(author authorToAdd)
+        {
+            bool result;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    ctx.authors.Add(authorToAdd);
+                    ctx.SaveChanges();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Author couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return result;
+        }
+
+
+        public bool AddBook(book bookToAdd)
+        {
+            bool result;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    ctx.books.Add(bookToAdd);
+                    ctx.SaveChanges();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Book couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return result;
+        }
     }
 }
