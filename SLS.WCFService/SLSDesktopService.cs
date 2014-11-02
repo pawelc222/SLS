@@ -18,7 +18,6 @@ namespace SLS.WCFService
                 var entityBook = (from b in ctx.books where b.id == bookId select b).FirstOrDefault();
                 if(entityBook != null) 
                 {
-
                     return GetBookFromEntity(entityBook);
                 }
                 else
@@ -120,15 +119,23 @@ namespace SLS.WCFService
         }
 
 
-        public bool AddBook(book bookToAdd)
+        public bool AddBook(book bookToAdd, List<author> authors)
         {
             bool result;
             using (var ctx = new SLSEntities())
             {
                 try
                 {
+                    bookToAdd.book_authors = new List<book_authors>();
+                    int order = 1;
+                    foreach (author bookAuthor in authors)                        
+                    {
+                        var auth = (from a in ctx.authors where a.id == bookAuthor.id select a).FirstOrDefault();
+                        bookToAdd.book_authors.Add(new book_authors { author = auth, book = bookToAdd, ord = order++ });
+                    }
                     ctx.books.Add(bookToAdd);
                     ctx.SaveChanges();
+
                     result = true;
                 }
                 catch (Exception ex)
