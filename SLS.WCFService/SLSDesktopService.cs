@@ -9,6 +9,8 @@ using System.Text;
 namespace SLS.WCFService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
+
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, InstanceContextMode = InstanceContextMode.PerSession)]
     public class SLSDesktopService : ISLSDesktopService
     {
         public Book GetBook(int bookId)

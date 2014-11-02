@@ -7,6 +7,7 @@ using System.Text;
 
 namespace SLS.WCFService
 {
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerCall)]
     public class SLSMobileService : ISLSMobileService
     {
         public List<Book> GetBooksForUser(int userId)
