@@ -1,4 +1,4 @@
-﻿using SLS.WCFService.SLS.WCFService;
+﻿using SLS.WCFService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ namespace SLS.WCFService
     public interface ISLSDesktopService
     {
         [OperationContract]
+        [FaultContract(typeof(BookNotFoundFault))]
         Book GetBook(int bookId);
 
         [OperationContract]
@@ -21,7 +22,5 @@ namespace SLS.WCFService
         [OperationContract]
         List<Book> GetDueBooks();
 
-
-        // TODO: Add your service operations here
     }
 }

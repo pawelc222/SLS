@@ -14,7 +14,7 @@ namespace SLS.WCFService.SelfHost
             ServiceHost svcHostDesktop = null;
             ServiceHost svcHostMobile = null;
             try
-            {
+            {                
                 svcHostDesktop = new ServiceHost(typeof(SLS.WCFService.SLSDesktopService));
                 svcHostDesktop.Open(); 
                 Console.WriteLine("\n\nSLS Service Desktop is Running  at following address");

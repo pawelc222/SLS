@@ -1,4 +1,4 @@
-﻿using SLS.WCFService.SLS.WCFService;
+﻿using SLS.WCFService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +23,11 @@ namespace SLS.WCFService
                 }
                 else
                 {
-                    throw new FaultException("Cannot find the book in the database");
+                    BookNotFoundFault fault = new BookNotFoundFault();
+                    fault.Result = false;
+                    fault.Message = "Book not found";
+                    fault.Description = "Requested book with id: " + bookId.ToString() + " is not found in database.";
+                    throw new FaultException<BookNotFoundFault>(fault);
                 }
 
             }
