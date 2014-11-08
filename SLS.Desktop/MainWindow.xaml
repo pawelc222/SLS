@@ -3,6 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Label Content="Numer książki:&#xD;&#xA;" HorizontalAlignment="Left" Margin="66,39,0,0" VerticalAlignment="Top" Width="87" Height="26"/>
+        <TextBox x:Name="bookNumberTextbox" HorizontalAlignment="Left" Height="23" Margin="158,41,0,0" TextWrapping="Wrap" Text="Numer ksiązki" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Pobierz&#xD;&#xA;" HorizontalAlignment="Left" Margin="121,70,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Button_Click"/>
+        <Label Content="Tytuł:&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" Margin="320,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.23,0.001" Height="24"/>
+        <Label x:Name="titleLabel" Content=".........." HorizontalAlignment="Left" Margin="380,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.453,0.485"/>
+
     </Grid>
 </Window>

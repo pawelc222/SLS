@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SLS.WCFService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SLS.WCFService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Book">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="available_copies" type="xs:int" />
+      <xs:element minOccurs="0" name="cover" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="language" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="publish_city" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="publish_date" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="publish_edition" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="table_of_contents" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Book" nillable="true" type="tns:Book" />
+  <xs:complexType name="BookNotFoundFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BookNotFoundFault" nillable="true" type="tns:BookNotFoundFault" />
+  <xs:complexType name="ArrayOfBook">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Book" nillable="true" type="tns:Book" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBook" nillable="true" type="tns:ArrayOfBook" />
+  <xs:complexType name="author">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="book_authors" nillable="true" type="tns:ArrayOfbook_authors" />
+      <xs:element minOccurs="0" name="date_of_birth" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="date_of_death" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="firstname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="author" nillable="true" type="tns:author" />
+  <xs:complexType name="ArrayOfbook_authors">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="book_authors" nillable="true" type="tns:book_authors" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfbook_authors" nillable="true" type="tns:ArrayOfbook_authors" />
+  <xs:complexType name="book_authors">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="author" nillable="true" type="tns:author" />
+      <xs:element minOccurs="0" name="author_id_fk" type="xs:int" />
+      <xs:element minOccurs="0" name="book" nillable="true" type="tns:book" />
+      <xs:element minOccurs="0" name="book_id_fk" type="xs:int" />
+      <xs:element minOccurs="0" name="ord" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="book_authors" nillable="true" type="tns:book_authors" />
+  <xs:complexType name="book">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="available_copies" type="xs:int" />
+      <xs:element minOccurs="0" name="book_authors" nillable="true" type="tns:ArrayOfbook_authors" />
+      <xs:element minOccurs="0" name="borrows" nillable="true" type="tns:ArrayOfborrow" />
+      <xs:element minOccurs="0" name="categories" nillable="true" type="tns:ArrayOfcategory" />
+      <xs:element minOccurs="0" name="cover" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="language" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="publish_city" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="publish_date" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="publish_edition" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="publisher" nillable="true" type="tns:publisher" />
+      <xs:element minOccurs="0" name="publisher_id_fk" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="reservations" nillable="true" type="tns:ArrayOfreservation" />
+      <xs:element minOccurs="0" name="table_of_contents" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="book" nillable="true" type="tns:book" />
+  <xs:complexType name="ArrayOfborrow">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="borrow" nillable="true" type="tns:borrow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfborrow" nillable="true" type="tns:ArrayOfborrow" />
+  <xs:complexType name="borrow">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="book" nillable="true" type="tns:book" />
+      <xs:element minOccurs="0" name="book_id_fk" type="xs:int" />
+      <xs:element minOccurs="0" name="from_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="prolong_cnt" type="xs:int" />
+      <xs:element minOccurs="0" name="to_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="user" nillable="true" type="tns:user" />
+      <xs:element minOccurs="0" name="user_id_fk" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="borrow" nillable="true" type="tns:borrow" />
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="borrows" nillable="true" type="tns:ArrayOfborrow" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="firstname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="incorrect_login_cnt" type="xs:int" />
+      <xs:element minOccurs="0" name="last_login_info" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="passwd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="phone" type="xs:int" />
+      <xs:element minOccurs="0" name="reservations" nillable="true" type="tns:ArrayOfreservation" />
+      <xs:element minOccurs="0" name="role" nillable="true" type="tns:role" />
+      <xs:element minOccurs="0" name="role_id_fk" type="xs:int" />
+      <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="user" nillable="true" type="tns:user" />
+  <xs:complexType name="ArrayOfreservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reservation" nillable="true" type="tns:reservation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfreservation" nillable="true" type="tns:ArrayOfreservation" />
+  <xs:complexType name="reservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="book" nillable="true" type="tns:book" />
+      <xs:element minOccurs="0" name="book_id_fk" type="xs:int" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="queue_position" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="reservation_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="user" nillable="true" type="tns:user" />
+      <xs:element minOccurs="0" name="user_id_fk" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="reservation" nillable="true" type="tns:reservation" />
+  <xs:complexType name="role">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="users" nillable="true" type="tns:ArrayOfuser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="role" nillable="true" type="tns:role" />
+  <xs:complexType name="ArrayOfuser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="user" nillable="true" type="tns:user" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfuser" nillable="true" type="tns:ArrayOfuser" />
+  <xs:complexType name="ArrayOfcategory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="category" nillable="true" type="tns:category" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfcategory" nillable="true" type="tns:ArrayOfcategory" />
+  <xs:complexType name="category">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="books" nillable="true" type="tns:ArrayOfbook" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="category" nillable="true" type="tns:category" />
+  <xs:complexType name="ArrayOfbook">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="book" nillable="true" type="tns:book" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfbook" nillable="true" type="tns:ArrayOfbook" />
+  <xs:complexType name="publisher">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="books" nillable="true" type="tns:ArrayOfbook" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="publisher" nillable="true" type="tns:publisher" />
+  <xs:complexType name="EntityCouldNotBeAdded">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EntityCouldNotBeAdded" nillable="true" type="tns:EntityCouldNotBeAdded" />
+  <xs:complexType name="ArrayOfauthor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="author" nillable="true" type="tns:author" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfauthor" nillable="true" type="tns:ArrayOfauthor" />
+</xs:schema>

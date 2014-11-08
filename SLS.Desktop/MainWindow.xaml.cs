@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SLS.Desktop.SLSDesktopServiceProxy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,15 @@ namespace SLS.Desktop
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SLSDesktopServiceClient p = new SLSDesktopServiceClient();
+            p.Open();
+            Book book = p.GetBook(Int32.Parse(bookNumberTextbox.Text));
+            titleLabel.Content = book.title;
+            p.Close();
         }
     }
 }

@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLS.WCFService.SelfHost", "SLS.WCFService.SelfHost\SLS.WCFService.SelfHost.csproj", "{D27E79ED-3AB3-4B89-A5C7-4FD9FCBB98E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLS.Desktop", "SLS.Desktop\SLS.Desktop.csproj", "{C99250EB-FB7E-40BD-9526-B06D53066AFD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18F201E6-83C0-456D-B28C-9F7940F96BCC} = {18F201E6-83C0-456D-B28C-9F7940F96BCC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLS.Mobile", "SLS.Mobile\SLS.Mobile.csproj", "{71AD3629-5394-47C1-B7FB-FC3AF81C6120}"
 EndProject

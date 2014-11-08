@@ -16,7 +16,7 @@ namespace SLS.WCFService.SelfHost
             try
             {                
                 svcHostDesktop = new ServiceHost(typeof(SLS.WCFService.SLSDesktopService));
-                svcHostDesktop.Opened += new EventHandler(onSvcHostDesktopOpened);
+                //svcHostDesktop.Opened += new EventHandler(onSvcHostDesktopOpened);
                 svcHostDesktop.Closed += new EventHandler(onSvcHostDesktopClosed);
                 svcHostDesktop.Open(); 
                 Console.WriteLine("\n\nSLS Service Desktop is Running  at following address");
