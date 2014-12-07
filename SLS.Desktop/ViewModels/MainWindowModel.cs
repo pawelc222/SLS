@@ -36,6 +36,9 @@ namespace SLS.Desktop.ViewModels
             var tabs = View.tabs.Items;
             foreach (TabItem item in tabs)
             {
+                if (item.Header.Equals(""))
+                    continue;
+
                 var treeItem = new TreeViewItem();
                 treeItem.Header = item.Header;
                 treeItem.Tag = "Show" + item.Tag;

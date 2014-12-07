@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SLS.Desktop.ViewModels
 {
-    abstract class ViewModel<T> : BindableBase
+    public abstract class ViewModel<T> : BindableBase
     {
         public T View { get; protected set; }
     }

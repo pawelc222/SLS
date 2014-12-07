@@ -7,14 +7,71 @@
              d:DesignHeight="500" d:DesignWidth="900">
     <StackPanel>
         <Label Content="Wydawcy" FontSize="30"></Label>
-        <DataGrid MinHeight="300" AlternatingRowBackground="Beige" Margin="10,10,10,10"
-                  Loaded="DataGrid_Loaded" CellEditEnding="DataGrid_CellEditEnding"
-                  ItemsSource="{Binding Data}"
-                  SelectionMode="Single" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding id}" IsReadOnly="True" Width="SizeToCells" MinWidth="50"/>
-                <DataGridTextColumn Header="Nazwa" Binding="{Binding name}" IsReadOnly="False" Width="SizeToCells" MinWidth="200"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel Orientation="Horizontal">
+            <DataGrid x:Name="DataGrid" MinHeight="300" AlternatingRowBackground="Beige" Margin="10,10,10,10"
+                      Loaded="DataGrid_Loaded" CellEditEnding="DataGrid_CellEditEnding"
+                      ItemsSource="{Binding Data}"
+                      SelectionMode="Single" AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding id}" IsReadOnly="True" Width="SizeToCells" MinWidth="50"/>
+                    <DataGridTextColumn Header="Nazwa" Binding="{Binding name}" IsReadOnly="False" Width="SizeToCells" MinWidth="200"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="280">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Label Content="Szczegóły wydawcy" Margin="0,0,0,10" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"></Label>
+                <Label Content="ID" Margin="0,0,0,10" Grid.Column="0" Grid.Row="1"></Label>
+                <TextBox Margin="0,0,0,10" Padding="3" Grid.Column="1" Grid.Row="1"
+                         Text="{Binding SelectedItem.id, ElementName=DataGrid}"
+                         IsReadOnly="True"></TextBox>
+                <Label Content="Nazwa" Margin="0,0,0,10" Grid.Column="0" Grid.Row="2"></Label>
+                <TextBox Margin="0,0,0,10" Padding="3" Grid.Column="1" Grid.Row="2"
+                         Text="{Binding SelectedItem.name, ElementName=DataGrid,
+                         Mode=TwoWay, 
+                         UpdateSourceTrigger=PropertyChanged, 
+                         ValidatesOnDataErrors=True, 
+                         ValidatesOnExceptions=True,
+                         BindsDirectlyToSource=True,
+                         NotifyOnSourceUpdated=True,
+                         NotifyOnTargetUpdated=True,
+                         NotifyOnValidationError=True}"
+                         ></TextBox>
+            </Grid>
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="280" Margin="16,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Content="Dodaj wydawcę" Margin="0,0,0,10" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"></Label>
+                <Label Content="Nazwa" Margin="0,0,0,10" Grid.Column="0" Grid.Row="1"></Label>
+                <TextBox x:Name="PublisherName" Margin="0,0,0,10" Padding="3" Grid.Column="1" Grid.Row="1"></TextBox>
+                <Button Content="Dodaj" Click="ButtonBase_OnClick" Padding="14,4,14,6" FontSize="14" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2"></Button>
+
+                <Label Content="Usuń wydawcę" Margin="0,40,0,10" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"></Label>
+                <Button Content="Usuń" Click="RemoveEntity_Onclick" Margin="6,0,0,0" Padding="14,4,14,6" FontSize="14" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="4"></Button>
+            </Grid>
+        </StackPanel>
     </StackPanel>
 </UserControl>
