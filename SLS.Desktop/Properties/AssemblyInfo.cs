@@ -7,13 +7,17 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SLS.Desktop")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SLS Bibliotekarz")]
+[assembly: AssemblyDescription("Zarządzanie księgozbiorem i wypożyczeniami.\n\n\n" +
+                               "Informacja o prawach autorskich:\n" +
+                               "- wykorzystano ikonę książki autorstwa Wallec (http://wwalczyszyn.deviantart.com) " +
+                               "na licencji CC Attribution-Noncommercial-No Derivate 4.0\n" +
+                               "\n\n")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SLS.Desktop")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyProduct("SLS Bibliotekarz")]
+[assembly: AssemblyCopyright("Copyright © 2014")]
+[assembly: AssemblyTrademark("SLS")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

@@ -11,12 +11,26 @@
                     <Separator/>
                     <MenuItem Header="_Zakończ" Click="CloseItem_Click" />
                 </MenuItem>
+                <MenuItem Header="_Edycja">
+                    <MenuItem Header="_Ustawienia" Click="Preferences_OnClick" />
+                </MenuItem>
                 <MenuItem Header="_Widok">
                     <MenuItem Header="Pokaż _nawigację" x:Name="toggleNav" IsChecked="True" IsCheckable="True"/>
                 </MenuItem>
+                <MenuItem Header="P_omoc">
+                    <MenuItem Header="_O programie..." Click="About_OnClick"/>
+                </MenuItem>
             </Menu>
-            <StatusBar Height="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Width="Auto" Margin="0,0,0,0">
-
+            <StatusBar Height="26" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Width="Auto" Margin="0,0,0,0">
+                <StatusBarItem Margin="0,0,20,0">
+                    stan operacji
+                </StatusBarItem>
+                <StatusBarItem>
+                    stan komunikacji z serwerem
+                </StatusBarItem>
+                <StatusBarItem Width="90" HorizontalContentAlignment="Right" HorizontalAlignment="Right">
+                    Wersja: v1.0.0.0
+                </StatusBarItem>
             </StatusBar>
 
             <TreeView HorizontalAlignment="Stretch" ItemsSource="{Binding Path=NavItems}"
@@ -40,18 +54,18 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Stretch"
                           Height="Auto" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" CanContentScroll="True">
                 <StackPanel HorizontalAlignment="Stretch" Height="Auto" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto">
-                    <TabControl x:Name="tabs" Width="Auto" HorizontalAlignment="Stretch" BorderThickness="0">
+                    <TabControl x:Name="tabs" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" BorderThickness="0">
                         <TabItem Header="" Tag="StartPage" Visibility="Collapsed">
                             <Label Content="Program SLS - strona startowa" FontSize="30"/>
                         </TabItem>
                         <TabItem Header="Książki" Tag="Books" Visibility="Collapsed">
-                            
+                            <controls:Books />
                         </TabItem>
                         <TabItem Header="Wydawcy" Tag="Publishers" Visibility="Collapsed">
                             <controls:Publishers />
                         </TabItem>
                         <TabItem Header="Kategorie" Tag="Categories" Visibility="Collapsed">
-                            
+                            <controls:Categories />
                         </TabItem>
                     </TabControl>
                 </StackPanel>

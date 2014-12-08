@@ -45,8 +45,8 @@ namespace SLS.Desktop.ViewModels
 
                 // można też pobierać z Resource
                 var subitem = new TreeViewItem();
-                subitem.Header = "Dodaj";
-                subitem.Tag = "Add" + item.Tag;
+                subitem.Header = "Szukaj";
+                subitem.Tag = "Search" + item.Tag;
                 treeItem.Items.Add(subitem);
 
                 NavItems.Add(treeItem);
