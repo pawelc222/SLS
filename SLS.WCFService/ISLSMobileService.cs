@@ -18,5 +18,8 @@ namespace SLS.WCFService
 
         [OperationContract]
         bool ReturnBook(int userId, int bookId);
+
+        [OperationContract]
+        void AddPushNotificationService(String address);
     }
 }

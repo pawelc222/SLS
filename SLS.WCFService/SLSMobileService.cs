@@ -113,5 +113,11 @@ namespace SLS.WCFService
                 }
             }
         }
+
+
+        public void AddPushNotificationService(string address)
+        {
+            Properties.Settings.Default.PushNotifocationServiceURI = address;
+        }
     }
 }
