@@ -85,6 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BusinessDelegate.cs" />
     <Compile Include="Commands\NavCommand.cs" />
     <Compile Include="Commands\ShowCategories.cs" />
     <Compile Include="Commands\ShowPublishers.cs" />
@@ -178,6 +179,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\SLSDesktopServiceProxy\SLS.Desktop.SLSDesktopServiceProxy.Book.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SLSDesktopServiceProxy\SLS.Desktop.SLSDesktopServiceProxy.Publisher1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SLSDesktopServiceProxy\SLS.WCFService.xsd">

@@ -79,6 +79,30 @@
   <wsdl:message name="ISLSDesktopService_AddBook_EntityCouldNotBeAddedFault_FaultMessage">
     <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/SLS.WCFService" name="detail" element="q3:EntityCouldNotBeAdded" />
   </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_SendPushNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendPushNotification" />
+  </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_SendPushNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendPushNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_GetAllPublishers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPublishers" />
+  </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_GetAllPublishers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPublishersResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_SavePublisher_InputMessage">
+    <wsdl:part name="parameters" element="tns:SavePublisher" />
+  </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_SavePublisher_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SavePublisherResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_DeletePublisher_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePublisher" />
+  </wsdl:message>
+  <wsdl:message name="ISLSDesktopService_DeletePublisher_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePublisherResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISLSDesktopService">
     <wsdl:operation name="GetBook">
       <wsdl:input wsaw:Action="http://tempuri.org/ISLSDesktopService/GetBook" message="tns:ISLSDesktopService_GetBook_InputMessage" />
@@ -102,6 +126,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISLSDesktopService/AddBook" message="tns:ISLSDesktopService_AddBook_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISLSDesktopService/AddBookResponse" message="tns:ISLSDesktopService_AddBook_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/ISLSDesktopService/AddBookEntityCouldNotBeAddedFault" name="EntityCouldNotBeAddedFault" message="tns:ISLSDesktopService_AddBook_EntityCouldNotBeAddedFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPushNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISLSDesktopService/SendPushNotification" message="tns:ISLSDesktopService_SendPushNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISLSDesktopService/SendPushNotificationResponse" message="tns:ISLSDesktopService_SendPushNotification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPublishers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISLSDesktopService/GetAllPublishers" message="tns:ISLSDesktopService_GetAllPublishers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISLSDesktopService/GetAllPublishersResponse" message="tns:ISLSDesktopService_GetAllPublishers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePublisher">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISLSDesktopService/SavePublisher" message="tns:ISLSDesktopService_SavePublisher_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISLSDesktopService/SavePublisherResponse" message="tns:ISLSDesktopService_SavePublisher_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePublisher">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISLSDesktopService/DeletePublisher" message="tns:ISLSDesktopService_DeletePublisher_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISLSDesktopService/DeletePublisherResponse" message="tns:ISLSDesktopService_DeletePublisher_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ISLSDesktopService" type="tns:ISLSDesktopService">
@@ -161,6 +201,42 @@
       <wsdl:fault name="EntityCouldNotBeAddedFault">
         <soap12:fault use="literal" name="EntityCouldNotBeAddedFault" namespace="" />
       </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SendPushNotification">
+      <soap12:operation soapAction="http://tempuri.org/ISLSDesktopService/SendPushNotification" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPublishers">
+      <soap12:operation soapAction="http://tempuri.org/ISLSDesktopService/GetAllPublishers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePublisher">
+      <soap12:operation soapAction="http://tempuri.org/ISLSDesktopService/SavePublisher" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePublisher">
+      <soap12:operation soapAction="http://tempuri.org/ISLSDesktopService/DeletePublisher" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="SLSDesktopService">

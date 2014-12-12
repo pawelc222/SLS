@@ -224,5 +224,78 @@ namespace SLS.WCFService
              }
          
         }
+
+
+        public List<Publisher> GetAllPublishers()
+        {
+            using (var ctx = new SLSEntities())
+            {
+                var entityPublishers = ctx.publishers.ToList();
+                List<Publisher> publishers = new List<Publisher>();
+                foreach(var p in entityPublishers)
+                {
+                    Publisher pub = new Publisher();
+                    pub.id = p.id;
+                    pub.name = p.name;
+                    publishers.Add(pub);
+                }
+                return publishers;
+            }
+        }
+
+        public bool SavePublisher(Publisher publisherToSave)
+        {
+            bool result;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    //var entityPublisher = (from b in ctx.publishers where b.id == publisherToSave.id select b).FirstOrDefault();
+                    var entityPublisher = new publisher();
+                    entityPublisher.name = publisherToSave.name;
+                    ctx.publishers.Add(entityPublisher);
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Publisher couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return result;
+        }
+
+
+        public bool DeletePublisher(Publisher publisherToDelete)
+        {
+            /*bool result;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    ctx.publishers.Remove(publisherToDelete);
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Publisher couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return result;*/
+            return true;
+        }
     }
 }
