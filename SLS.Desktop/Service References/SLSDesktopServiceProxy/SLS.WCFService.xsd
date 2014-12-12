@@ -193,4 +193,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfauthor" nillable="true" type="tns:ArrayOfauthor" />
+  <xs:complexType name="ArrayOfPublisher">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Publisher" nillable="true" type="tns:Publisher" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPublisher" nillable="true" type="tns:ArrayOfPublisher" />
+  <xs:complexType name="Publisher">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Publisher" nillable="true" type="tns:Publisher" />
 </xs:schema>

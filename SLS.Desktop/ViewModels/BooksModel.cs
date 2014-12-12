@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Mvvm;
 using System.Windows.Input;
+using SLS.Desktop.SLSDesktopServiceProxy;
 
 namespace SLS.Desktop.ViewModels
 {
@@ -35,12 +36,21 @@ namespace SLS.Desktop.ViewModels
             Data = new ObservableCollection<SLSDesktopServiceProxy.book1>();
 
             //@todo: pobranie danych
-            var test = new SLSDesktopServiceProxy.book1 { id = 404, title = "tytuł #1" };
-            var test2 = new SLSDesktopServiceProxy.book1 { id = 405, title = "tytuł #2" };
-            Data.Add(test);
-            Data.Add(test2);
-            test.PropertyChanged += Item_PropertyChanged;
-            test2.PropertyChanged += Item_PropertyChanged;
+            //var test = new SLSDesktopServiceProxy.book1 { id = 404, title = "tytuł #1" };
+            //var test2 = new SLSDesktopServiceProxy.book1 { id = 405, title = "tytuł #2" };
+            //Data.Add(test);
+            //Data.Add(test2);
+            //test.PropertyChanged += Item_PropertyChanged;
+            //test2.PropertyChanged += Item_PropertyChanged;
+
+            List<Book> books = BusinessDelegate.Instance.GetAllBooks();
+
+            foreach (Book b in books)
+            {
+                book1 book = new SLSDesktopServiceProxy.book1 { id = b.id, title = b.title, isbn = b.isbn, description = b.description};
+                Data.Add(book);
+                book.PropertyChanged += Item_PropertyChanged;
+            }
 
             //
             Data.CollectionChanged += Data_CollectionChanged;

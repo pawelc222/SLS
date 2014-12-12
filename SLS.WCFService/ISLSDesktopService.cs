@@ -33,5 +33,13 @@ namespace SLS.WCFService
         [OperationContract]
         void SendPushNotification(string NotificationContent);
 
+        [OperationContract]
+        List<Publisher> GetAllPublishers();
+
+        [OperationContract]
+        bool SavePublisher(Publisher publisherToSave);
+
+        [OperationContract]
+        bool DeletePublisher(Publisher publisherToDelete);
     }
 }
