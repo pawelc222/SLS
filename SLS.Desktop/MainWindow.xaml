@@ -13,6 +13,7 @@
                 </MenuItem>
                 <MenuItem Header="_Edycja">
                     <MenuItem Header="_Ustawienia" Click="Preferences_OnClick" />
+                    <MenuItem Header="_Wyślij notyfikację" Click="Notification_OnClick" />
                 </MenuItem>
                 <MenuItem Header="_Widok">
                     <MenuItem Header="Pokaż _nawigację" x:Name="toggleNav" IsChecked="True" IsCheckable="True"/>

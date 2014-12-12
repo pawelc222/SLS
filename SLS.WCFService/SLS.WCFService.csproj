@@ -77,6 +77,7 @@
     <Compile Include="book.cs">
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
+    <Compile Include="BorrowedBook.cs" />
     <Compile Include="FaultContracts.cs" />
     <Compile Include="book_authors.cs">
       <DependentUpon>Library.tt</DependentUpon>

@@ -10,31 +10,30 @@ namespace SLS.WCFService
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerCall)]
     public class SLSMobileService : ISLSMobileService
     {
-        public List<Book> GetBooksForUser(int userId)
+        public List<BorrowedBook> GetBooksForUser(int userId)
         {
             using (var ctx = new SLSEntities())
             {
-                List<Book> books = new List<Book>();
+                List<BorrowedBook> books = new List<BorrowedBook>();
                 var entityBooks = (from b in ctx.books
-                             from bor in b.borrows
-                             where bor.user_id_fk == userId
-                             select b).ToList();
+                                   from bor in b.borrows
+                                   where bor.user_id_fk == userId
+                                   select b).ToList();
+
                 if (entityBooks != null)
                 {
                     foreach (var entityBook in entityBooks)
                     {
-                        Book book = new Book();
+                        BorrowedBook book = new BorrowedBook();
                         book.id = entityBook.id;
                         book.isbn = entityBook.isbn;
-                        book.publish_date = entityBook.publish_date;
-                        book.publish_city = entityBook.publish_city;
-                        book.publish_edition = entityBook.publish_edition;
                         book.title = entityBook.title;
                         book.cover = entityBook.cover;
                         book.table_of_contents = entityBook.table_of_contents;
                         book.language = entityBook.language;
                         book.description = entityBook.description;
-                        book.available_copies = entityBook.available_copies;
+                        book.ToDate = DateTime.Now.AddDays(30);
+                        
                         books.Add(book);
                     }
                     return books;

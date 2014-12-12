@@ -179,11 +179,12 @@ namespace SLS.WCFService
                  // sendNotificationRequest.Headers.Add("X-MessageID", "<UUID>");
 
                  // Create the Tile message.
+                 Random r = new Random();
                  string tileMessage = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                  "<wp:Notification xmlns:wp=\"WPNotification\">" +
                      "<wp:Tile>" +
                        "<wp:BackgroundImage>" + "Background.png" + "</wp:BackgroundImage>" +
-                       "<wp:Count>" + "1" + "</wp:Count>" +
+                       "<wp:Count>" + r.Next(1,10) + "</wp:Count>" +
                        "<wp:Title>" + "SLS Mobile" + "</wp:Title>" +
                        "<wp:BackBackgroundImage>" + "Tileback.png" + "</wp:BackBackgroundImage>" +
                        "<wp:BackTitle>" + "Notification" + "</wp:BackTitle>" +
@@ -192,7 +193,7 @@ namespace SLS.WCFService
                  "</wp:Notification>";
 
                  // Set the notification payload to send.
-                 byte[] notificationMessage = Encoding.Default.GetBytes(tileMessage);
+                 byte[] notificationMessage = System.Text.Encoding.UTF8.GetBytes(tileMessage);
 
                  // Set the web request content length.
                  sendNotificationRequest.ContentLength = notificationMessage.Length;

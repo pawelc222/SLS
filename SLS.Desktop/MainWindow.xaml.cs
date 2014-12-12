@@ -124,5 +124,10 @@ namespace SLS.Desktop
             dlg.MaxWidth = 300;
             dlg.ShowDialog(); 
         }
+
+        private void Notification_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

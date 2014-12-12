@@ -25,7 +25,7 @@ namespace SLS.WCFService.SelfHost
                 svcHostMobile = new ServiceHost(typeof(SLS.WCFService.SLSMobileService));
                 svcHostMobile.Open(); 
                 Console.WriteLine("\n\nSLS Service Mobile is Running  at following address");
-                Console.WriteLine("\nhttp://localhost:1234/SLSMobile");
+                Console.WriteLine("\nhttp://192.168.10.101:1234/SLSMobile");
                 
             }
             catch (Exception eX)

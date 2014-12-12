@@ -11,7 +11,7 @@ namespace SLS.WCFService
     public interface ISLSMobileService
     {
         [OperationContract]
-        List<Book> GetBooksForUser(int userId);
+        List<BorrowedBook> GetBooksForUser(int userId);
         
         [OperationContract]
         bool BorrowBook(int userId, int bookId);
@@ -20,6 +20,6 @@ namespace SLS.WCFService
         bool ReturnBook(int userId, int bookId);
 
         [OperationContract]
-        void AddPushNotificationService(String address);
+        void AddPushNotificationService(string address);
     }
 }

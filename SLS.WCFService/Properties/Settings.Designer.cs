@@ -34,5 +34,6 @@ namespace SLS.WCFService.Properties {
                 this["PushNotifocationServiceURI"] = value;
             }
         }
+
     }
 }
