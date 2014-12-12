@@ -1742,6 +1742,9 @@ namespace SLS.Desktop.SLSDesktopServiceProxy {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISLSDesktopService/AddBook", ReplyAction="http://tempuri.org/ISLSDesktopService/AddBookResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(SLS.Desktop.SLSDesktopServiceProxy.EntityCouldNotBeAdded), Action="http://tempuri.org/ISLSDesktopService/AddBookEntityCouldNotBeAddedFault", Name="EntityCouldNotBeAdded", Namespace="http://schemas.datacontract.org/2004/07/SLS.WCFService")]
         bool AddBook(SLS.Desktop.SLSDesktopServiceProxy.book1 bookToAdd, SLS.Desktop.SLSDesktopServiceProxy.author[] authors);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISLSDesktopService/SendPushNotification", ReplyAction="http://tempuri.org/ISLSDesktopService/SendPushNotificationResponse")]
+        void SendPushNotification(string NotificationContent);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1789,6 +1792,10 @@ namespace SLS.Desktop.SLSDesktopServiceProxy {
         
         public bool AddBook(SLS.Desktop.SLSDesktopServiceProxy.book1 bookToAdd, SLS.Desktop.SLSDesktopServiceProxy.author[] authors) {
             return base.Channel.AddBook(bookToAdd, authors);
+        }
+        
+        public void SendPushNotification(string NotificationContent) {
+            base.Channel.SendPushNotification(NotificationContent);
         }
     }
 }

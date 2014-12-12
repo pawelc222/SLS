@@ -127,7 +127,10 @@ namespace SLS.Desktop
 
         private void Notification_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            SLSDesktopServiceClient client = new SLSDesktopServiceClient();
+            client.Open();
+            client.SendPushNotification("Nowa książka w bibliotece");
+            client.Close();
         }
     }
 }
