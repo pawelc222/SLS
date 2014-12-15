@@ -7,14 +7,17 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SLS.WCFService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
 
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class SLSDesktopService : ISLSDesktopService
     {
+        static Action<string> connectionEvent = delegate { };
+
         public Book GetBook(int bookId)
         {
             using (var ctx = new SLSEntities())
@@ -239,22 +242,74 @@ namespace SLS.WCFService
                     pub.name = p.name;
                     publishers.Add(pub);
                 }
+
+                Task.Factory.StartNew(() =>
+                {
+                    connectionEvent("Pobrano wydawców");
+                });
+
                 return publishers;
             }
         }
 
-        public bool SavePublisher(Publisher publisherToSave)
+        public int SavePublisher(Publisher publisherToSave)
+        {
+            int newID = -1;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    var entityPublisher = (from b in ctx.publishers where b.id == publisherToSave.id select b).FirstOrDefault();
+                    if(entityPublisher == null)
+                    {
+                        entityPublisher = new publisher();
+                        entityPublisher.name = publisherToSave.name;
+                        ctx.publishers.Add(entityPublisher);
+                    }
+                    else
+                    {
+                        entityPublisher.name = publisherToSave.name;
+                    }
+
+                    
+                    ctx.SaveChanges();
+
+                    newID = entityPublisher.id;
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        connectionEvent("Zapisano wydawcę");
+                    });
+
+                }
+                catch (Exception ex)
+                {
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Publisher couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return newID;
+        }
+
+
+        public bool DeletePublisher(Publisher publisherToDelete)
         {
             bool result;
             using (var ctx = new SLSEntities())
             {
                 try
                 {
-                    //var entityPublisher = (from b in ctx.publishers where b.id == publisherToSave.id select b).FirstOrDefault();
-                    var entityPublisher = new publisher();
-                    entityPublisher.name = publisherToSave.name;
-                    ctx.publishers.Add(entityPublisher);
+                    var entityPublisher = (from b in ctx.publishers where b.id == publisherToDelete.id select b).FirstOrDefault();
+                    ctx.publishers.Remove(entityPublisher);
                     ctx.SaveChanges();
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        connectionEvent("Usunięto wydawcę");
+                    });
 
                     result = true;
                 }
@@ -272,15 +327,65 @@ namespace SLS.WCFService
         }
 
 
-        public bool DeletePublisher(Publisher publisherToDelete)
+        public int SaveBook(Book bookToSave)
         {
-            /*bool result;
+            int newID = -1;
             using (var ctx = new SLSEntities())
             {
                 try
                 {
-                    ctx.publishers.Remove(publisherToDelete);
+                    var entityBook = (from b in ctx.books where b.id == bookToSave.id select b).FirstOrDefault();
+                    if (entityBook == null)
+                    {
+                        entityBook = new book();
+                        entityBook.title = bookToSave.title;
+                        entityBook.isbn = bookToSave.isbn;
+                        entityBook.description = bookToSave.description;
+                        ctx.books.Add(entityBook);
+                    }
+                    else
+                    {
+                        entityBook.title = bookToSave.title;
+                        entityBook.isbn = bookToSave.isbn;
+                        entityBook.description = bookToSave.description; 
+                    }
+
                     ctx.SaveChanges();
+                    
+                    Task.Factory.StartNew(() =>
+                    {
+                        connectionEvent("Zapisano książkę");
+                    });
+
+                    newID = entityBook.id;
+                }
+                catch (Exception ex)
+                {
+                    EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
+                    fault.Result = false;
+                    fault.Message = "Publisher couldn't be added";
+                    fault.Description = "Error details: " + ex.ToString();
+                    throw new FaultException<EntityCouldNotBeAdded>(fault);
+                }
+            }
+            return newID;
+        }
+
+        public bool DeleteBook(Book bookToDelete)
+        {
+            bool result;
+            using (var ctx = new SLSEntities())
+            {
+                try
+                {
+                    var entityBook = (from b in ctx.books where b.id == bookToDelete.id select b).FirstOrDefault();
+                    ctx.books.Remove(entityBook);
+                    ctx.SaveChanges();
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        connectionEvent("Usunięto książkę");
+                    });
 
                     result = true;
                 }
@@ -289,13 +394,20 @@ namespace SLS.WCFService
                     result = false;
                     EntityCouldNotBeAdded fault = new EntityCouldNotBeAdded();
                     fault.Result = false;
-                    fault.Message = "Publisher couldn't be added";
+                    fault.Message = "Book couldn't be deleted";
                     fault.Description = "Error details: " + ex.ToString();
                     throw new FaultException<EntityCouldNotBeAdded>(fault);
                 }
             }
-            return result;*/
-            return true;
+            return result;
+        }
+
+
+        public void SubscribeConnectionEvent()
+        {
+            IConnectionEvents subscriber =
+            OperationContext.Current.GetCallbackChannel<IConnectionEvents>();
+            connectionEvent += subscriber.StatusChanged;
         }
     }
 }

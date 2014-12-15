@@ -35,12 +35,6 @@ namespace SLS.Desktop.ViewModels
         private void initData() {
             Data = new ObservableCollection<SLSDesktopServiceProxy.publisher>();
 
-            //@todo: pobranie danych
-            //var test = new SLSDesktopServiceProxy.publisher {id = 404, name = "test"};
-            //Data.Add(test);
-            //test.PropertyChanged += Item_PropertyChanged;
-
-
             updatePublishers();
         }
 
@@ -55,7 +49,6 @@ namespace SLS.Desktop.ViewModels
                 pub.PropertyChanged += Item_PropertyChanged;
             }
 
-            //
             Data.CollectionChanged += Data_CollectionChanged;
         }
 
@@ -66,9 +59,11 @@ namespace SLS.Desktop.ViewModels
             Console.WriteLine(eventArgs.ToString());
             Console.WriteLine("---");
 
-            //@todo: przesłanie zmienionej encji na serwer
-            // buforowanie zmian
-            // rzutowanie sender na publisher
+            Publisher1 p = new Publisher1();
+            publisher newP = (publisher)sender;
+            p.id = newP.id;
+            p.name = newP.name;
+            BusinessDelegate.Instance.SavePublisher(p);
         }
 
 
@@ -80,22 +75,26 @@ namespace SLS.Desktop.ViewModels
             Console.WriteLine("---");
 
             IList list = null;
+            Publisher1 p = null;
             switch (eventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    //@todo: dodanie encji na serwerze
-                    Publisher1 p = new Publisher1();
+                    p = new Publisher1();
                     publisher newP = (publisher)eventArgs.NewItems[0];
-                    p.id = newP.id;
                     p.name = newP.name;
-                    BusinessDelegate.Instance.SavePublisher(p);
+                    int id = BusinessDelegate.Instance.SavePublisher(p);
+                    newP.id = id;
                     Console.WriteLine("dodanie encji na serwerze");
                     list = eventArgs.NewItems;
 
                     break;  
 
                 case NotifyCollectionChangedAction.Remove:
-                    //@todo: usunięcie encji na serwerze
+                    p = new Publisher1();
+                    publisher delP = (publisher)eventArgs.OldItems[0];
+                    p.id = delP.id;
+                    p.name = delP.name;
+                    BusinessDelegate.Instance.DeletePublisher(p);
                     Console.WriteLine("usunięcie encji na serwerze");
                     list = eventArgs.OldItems;
 

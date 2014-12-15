@@ -40,6 +40,8 @@ namespace SLS.Desktop
             var viewModel = new ViewModels.MainWindowModel(this);
             base.DataContext = viewModel;
 
+            bar.DataContext = BusinessDelegate.Instance;
+
             Title = GetAssemblyAttribute<AssemblyTitleAttribute>(a => a.Title);
             Icon = new BitmapImage(new Uri(@"pack://application:,,,/SLS.Desktop;component/images/Books-icon.png"));
         }
@@ -127,10 +129,7 @@ namespace SLS.Desktop
 
         private void Notification_OnClick(object sender, RoutedEventArgs e)
         {
-            SLSDesktopServiceClient client = new SLSDesktopServiceClient();
-            client.Open();
-            client.SendPushNotification("Nowa książka w bibliotece");
-            client.Close();
+            BusinessDelegate.Instance.SendPushNotification("Nowa książka w bibliotece");
         }
     }
 }

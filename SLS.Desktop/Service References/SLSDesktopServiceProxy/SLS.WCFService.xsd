@@ -187,12 +187,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EntityCouldNotBeAdded" nillable="true" type="tns:EntityCouldNotBeAdded" />
-  <xs:complexType name="ArrayOfauthor">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="author" nillable="true" type="tns:author" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfauthor" nillable="true" type="tns:ArrayOfauthor" />
   <xs:complexType name="ArrayOfPublisher">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Publisher" nillable="true" type="tns:Publisher" />

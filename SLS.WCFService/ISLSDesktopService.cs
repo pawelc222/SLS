@@ -9,7 +9,7 @@ using System.Text;
 namespace SLS.WCFService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IConnectionEvents), SessionMode=SessionMode.Required)]
     public interface ISLSDesktopService
     {
         [OperationContract]
@@ -28,7 +28,10 @@ namespace SLS.WCFService
 
         [OperationContract]
         [FaultContract(typeof(EntityCouldNotBeAdded))]
-        bool AddBook(book bookToAdd, List<author> authors);
+        int SaveBook(Book bookToAdd);
+
+        [OperationContract]
+        bool DeleteBook(Book bookToDelete);
 
         [OperationContract]
         void SendPushNotification(string NotificationContent);
@@ -37,9 +40,12 @@ namespace SLS.WCFService
         List<Publisher> GetAllPublishers();
 
         [OperationContract]
-        bool SavePublisher(Publisher publisherToSave);
+        int SavePublisher(Publisher publisherToSave);
 
         [OperationContract]
         bool DeletePublisher(Publisher publisherToDelete);
+
+        [OperationContract]
+        void SubscribeConnectionEvent();
     }
 }

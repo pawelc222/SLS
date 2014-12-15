@@ -35,14 +35,6 @@ namespace SLS.Desktop.ViewModels
         private void initData() {
             Data = new ObservableCollection<SLSDesktopServiceProxy.book1>();
 
-            //@todo: pobranie danych
-            //var test = new SLSDesktopServiceProxy.book1 { id = 404, title = "tytuł #1" };
-            //var test2 = new SLSDesktopServiceProxy.book1 { id = 405, title = "tytuł #2" };
-            //Data.Add(test);
-            //Data.Add(test2);
-            //test.PropertyChanged += Item_PropertyChanged;
-            //test2.PropertyChanged += Item_PropertyChanged;
-
             List<Book> books = BusinessDelegate.Instance.GetAllBooks();
 
             foreach (Book b in books)
@@ -52,7 +44,6 @@ namespace SLS.Desktop.ViewModels
                 book.PropertyChanged += Item_PropertyChanged;
             }
 
-            //
             Data.CollectionChanged += Data_CollectionChanged;
 
         }
@@ -64,9 +55,18 @@ namespace SLS.Desktop.ViewModels
             Console.WriteLine(eventArgs.ToString());
             Console.WriteLine("---");
 
-            //@todo: przesłanie zmienionej encji na serwer
-            // buforowanie zmian
-            // rzutowanie sender na publisher
+            Book b = convertEntityToBook((book1)sender);
+            BusinessDelegate.Instance.SaveBook(b);
+        }
+
+        private Book convertEntityToBook(book1 book)
+        {
+            Book b = new Book();
+            b.id = book.id;
+            b.title = book.title;
+            b.isbn = book.isbn;
+            b.description = book.description;
+            return b;
         }
 
 
@@ -78,17 +78,26 @@ namespace SLS.Desktop.ViewModels
             Console.WriteLine("---");
 
             IList list = null;
+            Book b = null;
             switch (eventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    //@todo: dodanie encji na serwerze
+                    book1 newBook = (book1)eventArgs.NewItems[0];
+                    b = convertEntityToBook(newBook);
+                    int id = BusinessDelegate.Instance.SaveBook(b);
+                    newBook.id = id;
+
                     Console.WriteLine("dodanie encji na serwerze");
                     list = eventArgs.NewItems;
 
+                    BusinessDelegate.Instance.SendPushNotification("Nowa książka w bibliotece");
                     break;  
 
                 case NotifyCollectionChangedAction.Remove:
-                    //@todo: usunięcie encji na serwerze
+                    book1 oldBook = (book1)eventArgs.OldItems[0];
+                    b = convertEntityToBook(oldBook);
+                    BusinessDelegate.Instance.DeleteBook(b);
+
                     Console.WriteLine("usunięcie encji na serwerze");
                     list = eventArgs.OldItems;
 

@@ -90,6 +90,7 @@
       <DependentUpon>Library.tt</DependentUpon>
     </Compile>
     <Compile Include="ContractBook.cs" />
+    <Compile Include="IConnectionEvents.cs" />
     <Compile Include="ISLSDesktopService.cs" />
     <Compile Include="ISLSMobileService.cs" />
     <Compile Include="Library.Context.cs">

@@ -53,18 +53,31 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddBook">
+  <xs:element name="SaveBook">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SLS.WCFService" minOccurs="0" name="bookToAdd" nillable="true" type="q5:book" />
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SLS.WCFService" minOccurs="0" name="authors" nillable="true" type="q6:ArrayOfauthor" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SLS.WCFService" minOccurs="0" name="bookToAdd" nillable="true" type="q5:Book" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddBookResponse">
+  <xs:element name="SaveBookResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="AddBookResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="SaveBookResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteBook">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SLS.WCFService" minOccurs="0" name="bookToDelete" nillable="true" type="q6:Book" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteBookResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteBookResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -78,6 +91,63 @@
   <xs:element name="SendPushNotificationResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllPublishers">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllPublishersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SLS.WCFService" minOccurs="0" name="GetAllPublishersResult" nillable="true" type="q7:ArrayOfPublisher" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SavePublisher">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/SLS.WCFService" minOccurs="0" name="publisherToSave" nillable="true" type="q8:Publisher" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SavePublisherResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SavePublisherResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePublisher">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/SLS.WCFService" minOccurs="0" name="publisherToDelete" nillable="true" type="q9:Publisher" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePublisherResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeletePublisherResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubscribeConnectionEvent">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubscribeConnectionEventResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StatusChanged">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="newStatus" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

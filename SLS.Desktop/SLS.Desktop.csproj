@@ -112,6 +112,7 @@
     <Compile Include="Preferences\Observable.cs" />
     <Compile Include="Preferences\SettingsModel.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SLSDesktopServiceCallback.cs" />
     <Compile Include="ViewModels\BooksModel.cs" />
     <Compile Include="ViewModels\BookDetailsModel.cs" />
     <Compile Include="ViewModels\PublishersModel.cs" />
